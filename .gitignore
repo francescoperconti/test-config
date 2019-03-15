@@ -1,0 +1,80 @@
+#######################################################
+# Versione 1.2 (18/05/2017)
+#
+# https://github.com/github/gitignore
+# https://en.wikipedia.org/wiki/List_of_archive_formats
+#
+# Show ignored files:
+#
+#   git check-ignore **/* -v
+#   git clean -ndX
+#
+#######################################################
+
+######
+# Misc
+######
+
+*.~*
+*.bak*
+*.bin*
+*.dat*
+*.dump*
+*.hprof
+*.log*
+*.msi*
+*.old*
+*tmp*
+*tmp*.*
+*_old*.*
+*.swp*
+*dump*
+~*.*
+hs_err_pid*
+logs/
+
+################
+# Java / Eclipse
+################
+
+*.apk
+*.class
+*.ear
+*.iml
+*.eml
+*.ipr
+*.iws
+*.launch
+*.jar
+*.war
+*.rar
+.buildpath
+.classpath
+.cproject
+.externalToolBuilders
+.factorypath
+.idea
+.loadpath
+.project
+.recommenders/
+.settings
+.springBeans
+.target
+.tern-project
+.texlipse
+classes/
+local.properties
+target/
+workspace*/
+bin/
+.metadata/
+
+
+#####
+# VCS
+#####
+
+.cvsignore
+.git
+.svn
+submodules/
