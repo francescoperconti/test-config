@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="30 seconds">
+
+	<property name="app.name" value="ams-platform-aui-hawk-api"/>
+	<property name="appender.base.dir" value="/usr/local/${app.name}/logs" />
+	<!-- parte dinamica automatica per creare la cartella YYYYMM in fase di rolling "/%d{yyyy-MM,aux}" -->
+	<property name="archive.base.dir" value="${appender.base.dir}/oldLogs/%d{yyyy-MM,aux}" />
+	<property name="layout.pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} line: %line- %msg%n"/>
+	<property name="system.env.name" value="SVIL"/>
+	<property name="log.root.level" value="INFO"/>
+
+	<!-- DA DECOMMENTARE PER ABILITARE LA SCRITTURA IN CONSOLE -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>${layout.pattern}</Pattern>
+		</layout>
+	</appender>
+	
+	<appender name="FILE-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${appender.base.dir}/${app.name}.log
+		</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${archive.base.dir}/${app.name}.%d{yyyy-MM-dd}.gz</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>${layout.pattern}</Pattern>
+		</layout>
+	</appender>
+
+	<appender name="CXF-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${appender.base.dir}/${app.name}-cxfsoap.log
+		</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${archive.base.dir}/${app.name}-cxfsoap.%d{yyyy-MM-dd}.gz</FileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>${layout.pattern}</Pattern>
+		</layout>
+	</appender>
+
+	<logger name="it.sisal" level="${log.root.level:-INFO}" >
+		<appender-ref ref="FILE-APPENDER" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+
+	<logger name="org.springframework" level="${log.root.level:-INFO}" >
+		<appender-ref ref="FILE-APPENDER" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+
+	<logger name="org.mongodb" level="${log.root.level:-INFO}" >
+		<appender-ref ref="FILE-APPENDER" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+
+	<logger name="org.apache.cxf" level="${log.root.level:-INFO}" >
+		<appender-ref ref="CXF-APPENDER" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+	
+	<root level="${log.root.level:-INFO}">
+		<appender-ref ref="STDOUT" />
+	</root>
+	
+</configuration>
